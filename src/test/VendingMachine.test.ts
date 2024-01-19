@@ -2,24 +2,24 @@ import {VendingMachine} from "../core/VendingMachine";
 import {Coin} from "../core/Coin";
 
 describe("VendingMachine should", () => {
-    it("display an initial amount", () => {
+    it("display an initial state", () => {
         const vendingMachine = new VendingMachine();
 
-        const initialAmount = vendingMachine.totalAmount();
-
-        expect(initialAmount).toBe(0.0)
+        expect(vendingMachine.display()).toBe("INSERT COIN")
+        expect(vendingMachine.recoverCoin()).toBe(null)
     });
 
     it.each([
-        {coin: Coin.NICKEL, expectedAmount: 0.05, coinName: "nickels"},
-        {coin: Coin.DIME, expectedAmount: 0.1, coinName: "dimes"},
-        {coin: Coin.QUARTER, expectedAmount: 0.25, coinName: "quarter" },
+        {coin: Coin.NICKEL, expectedAmount: "0.05", coinName: "nickels"},
+        {coin: Coin.DIME, expectedAmount: "0.1", coinName: "dimes"},
+        {coin: Coin.QUARTER, expectedAmount: "0.25", coinName: "quarter" },
     ])("insert a valid coin $coinName", ({ coin, expectedAmount}) => {
         const vendingMachine = new VendingMachine();
 
         vendingMachine.insertCoin(coin);
 
-        expect(vendingMachine.totalAmount()).toBe(expectedAmount)
+        expect(vendingMachine.display()).toBe(expectedAmount)
+        expect(vendingMachine.recoverCoin()).toBe(null)
     });
 
     it("insert an invalid coin", () => {
@@ -27,7 +27,8 @@ describe("VendingMachine should", () => {
 
         vendingMachine.insertCoin(Coin.PENNY);
 
-        expect(vendingMachine.totalAmount()).toBe(0.0)
+        expect(vendingMachine.display()).toBe("INSERT COIN")
+        expect(vendingMachine.recoverCoin()).toBe(Coin.PENNY)
     });
 
 })
