@@ -1,3 +1,5 @@
+import {Coin} from "@core/Coin";
+
 export class VendingMachine {
     private currentAmount: number = 0.0;
 
@@ -5,17 +7,18 @@ export class VendingMachine {
         return this.currentAmount;
     }
 
-    public insertCoin(coinValue: number, coinType: string) {
-        if (coinType === "nickels") {
-            this.currentAmount += coinValue;
+    public insertCoin(coin: Coin) {
+        if (coin === Coin.NICKEL) {
+            this.currentAmount += coin.valueOf();
         }
 
-        if (coinType === "dimes") {
-            this.currentAmount += coinValue;
+        if (coin === Coin.DIME) {
+            this.currentAmount += coin.valueOf();
         }
 
-        if (coinType === "quarters") {
-            this.currentAmount += coinValue;
+        if (coin === Coin.QUARTER) {
+            this.currentAmount += coin.valueOf();
         }
     }
+
 }

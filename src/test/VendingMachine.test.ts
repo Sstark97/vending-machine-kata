@@ -1,4 +1,5 @@
-import { VendingMachine } from "../core/VendingMachine";
+import {VendingMachine} from "../core/VendingMachine";
+import {Coin} from "../core/Coin";
 
 describe("VendingMachine should", () => {
     it("display an initial amount", () => {
@@ -10,14 +11,15 @@ describe("VendingMachine should", () => {
     });
 
     it.each([
-        {value: 1.0, type: "nickels"},
-        {value: 1.0, type: "dimes"},
-        {value: 1.0, type: "quarters"},
-    ])("insert a valid coin", ({ value, type }) => {
+        {coin: Coin.NICKEL, expectedAmount: 0.05, coinName: "nickels"},
+        {coin: Coin.DIME, expectedAmount: 0.1, coinName: "dimes"},
+        {coin: Coin.QUARTER, expectedAmount: 0.25, coinName: "quarter" },
+    ])("insert a valid coin $coinName", ({ coin, expectedAmount}) => {
         const vendingMachine = new VendingMachine();
 
-        vendingMachine.insertCoin(value, type);
+        vendingMachine.insertCoin(coin);
 
-        expect(vendingMachine.totalAmount()).toBe(value)
+        expect(vendingMachine.totalAmount()).toBe(expectedAmount)
     });
+
 })
