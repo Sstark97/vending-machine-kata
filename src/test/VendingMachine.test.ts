@@ -22,4 +22,12 @@ describe("VendingMachine should", () => {
         expect(vendingMachine.totalAmount()).toBe(expectedAmount)
     });
 
+    it("insert an invalid coin", () => {
+        const vendingMachine = new VendingMachine();
+
+        vendingMachine.insertCoin(Coin.PENNY);
+
+        expect(vendingMachine.totalAmount()).toBe(0.0)
+    });
+
 })
