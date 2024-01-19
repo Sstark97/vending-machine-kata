@@ -2,6 +2,7 @@ import {Coin} from "@core/Coin";
 
 export class VendingMachine {
     private currentAmount: number = 0.0;
+    private rejectedCoin: Coin | null = null;
 
     public totalAmount(): number {
         return this.currentAmount;
@@ -19,6 +20,10 @@ export class VendingMachine {
         if (coin === Coin.QUARTER) {
             this.currentAmount = coin.valueOf();
         }
+
+        if (coin === Coin.PENNY) {
+            this.rejectedCoin = coin;
+        }
     }
 
     private defaultDisplayedMessage = "INSERT COIN";
@@ -34,10 +39,12 @@ export class VendingMachine {
     }
 
     private formatDisplayedAmount() {
-        return Intl.NumberFormat("en-GB", {maximumSignificantDigits: 2}).format(this.currentAmount);
+        return Intl.NumberFormat("en-GB", {minimumFractionDigits: 2}).format(this.currentAmount);
     }
 
     recoverCoin() {
-        return null;
+        const coinToReturn = this.rejectedCoin;
+        this.rejectedCoin = null;
+        return coinToReturn;
     }
 }

@@ -11,7 +11,7 @@ describe("VendingMachine should", () => {
 
     it.each([
         {coin: Coin.NICKEL, expectedAmount: "0.05", coinName: "nickels"},
-        {coin: Coin.DIME, expectedAmount: "0.1", coinName: "dimes"},
+        {coin: Coin.DIME, expectedAmount: "0.10", coinName: "dimes"},
         {coin: Coin.QUARTER, expectedAmount: "0.25", coinName: "quarter" },
     ])("insert a valid coin $coinName", ({ coin, expectedAmount}) => {
         const vendingMachine = new VendingMachine();
@@ -30,5 +30,4 @@ describe("VendingMachine should", () => {
         expect(vendingMachine.display()).toBe("INSERT COIN")
         expect(vendingMachine.recoverCoin()).toBe(Coin.PENNY)
     });
-
 })
